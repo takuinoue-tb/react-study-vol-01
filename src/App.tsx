@@ -1,26 +1,55 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { FC, useState } from "react";
+import { FormProduct } from "./components/FormProduct";
+import styled from 'styled-components';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const InputWrapper = styled.div`
+  margin-bottom: 16px;
 
-export default App;
+  > .label {
+    display: inline-flex;
+    align-items: center;
+
+    > .text {
+      margin-right: 8px;
+    }
+
+    > .input {
+      padding: 8px 16px;
+    }
+  }
+`;
+
+export const App: FC = () => {
+  const [price, setPrice] = useState(10000);
+  const [count, setCount] = useState(10);
+  let url = '';
+
+  return (<>
+    <InputWrapper>
+      <label className="label">
+        <span className="text">お礼の品の金額</span>
+        <input className="input" type="number" value={price} onChange={(event) => {
+          setPrice(Number(event.currentTarget.value));
+        }} />
+      </label>
+    </InputWrapper>
+    <InputWrapper>
+      <label className="label">
+        <span className="text">お礼の品の在庫</span>
+        <input className="input" type="number" value={count} onChange={(event) => {
+          setCount(Number(event.currentTarget.value));
+        }} />
+      </label>
+    </InputWrapper>
+    <InputWrapper>
+      <label className="label">
+        <span className="text">通常購入のURL</span>
+        <input className="input" type="url" onChange={(event) => {
+          url = event.currentTarget.value;
+          console.log(url);
+        }} />
+      </label>
+    </InputWrapper>
+    <FormProduct price={price} count={count} url={url} />
+  </>)
+};
