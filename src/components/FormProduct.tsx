@@ -1,4 +1,9 @@
 import { FC } from 'react';
+import { FormWrapper } from './FormWrapper'
+import { FormPrice } from './FormPrice'
+import { FormCount } from './FormCount'
+import { FormAmount } from './FormAmount'
+import { FormUrl } from './FormUrl'
 
 type Props = {
   price: number;
@@ -6,10 +11,13 @@ type Props = {
   url: string;
 };
 
-export const FormProduct: FC<Props> = ({ price, count, url }) => {
-    return <>
-      <div>寄付額：{price}</div>
-      <div>在庫：{count}</div>
-      <div>通常購入URL：{url}</div>
-    </>;
+export const FormProduct: FC<Props> = ({ price, count, url, }) => {
+  return <>
+    <FormWrapper backgroundColor={"#f6f6f6"} wrapperWidth={"600"} wrapperHeight={"280"}>
+      <FormPrice price={price} />
+      <FormCount count={count} />
+      <FormAmount count={count} />
+      {url && <FormUrl url={url} />}
+    </FormWrapper>
+  </>;
 };

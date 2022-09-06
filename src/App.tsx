@@ -4,6 +4,11 @@ import styled from 'styled-components';
 
 const InputWrapper = styled.div`
   margin-bottom: 16px;
+  text-align: center;
+
+  :first-child {
+    margin-top: 80px
+  }
 
   > .label {
     display: inline-flex;
@@ -22,7 +27,7 @@ const InputWrapper = styled.div`
 export const App: FC = () => {
   const [price, setPrice] = useState(10000);
   const [count, setCount] = useState(10);
-  let url = '';
+  const [url, setUrl] = useState('');
 
   return (<>
     <InputWrapper>
@@ -36,7 +41,7 @@ export const App: FC = () => {
     <InputWrapper>
       <label className="label">
         <span className="text">お礼の品の在庫</span>
-        <input className="input" type="number" value={count} onChange={(event) => {
+        <input className="input" type="number" value={count} min="0" onChange={(event) => {
           setCount(Number(event.currentTarget.value));
         }} />
       </label>
@@ -44,9 +49,8 @@ export const App: FC = () => {
     <InputWrapper>
       <label className="label">
         <span className="text">通常購入のURL</span>
-        <input className="input" type="url" onChange={(event) => {
-          url = event.currentTarget.value;
-          console.log(url);
+        <input className="input" type="url" value={url} onChange={(event) => {
+          setUrl(event.currentTarget.value);
         }} />
       </label>
     </InputWrapper>
